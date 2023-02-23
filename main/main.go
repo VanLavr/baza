@@ -23,6 +23,8 @@ func main() {
 	router.GET("/baza", api.GetAllBazas)
 	// get a certain baza endpoint...
 	router.GET("/baza/:id", api.GetBazaByID)
+	// create your own baza endpoint...
+	router.POST("/baza/create", api.CreateYourBaza)
 
 	router.Run("localhost:8080")
 }

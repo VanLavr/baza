@@ -105,3 +105,18 @@ func GetAllBazas(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, BAZAS)
 }
+
+// create your own baza...
+func CreateYourBaza(c *gin.Context) {
+	var MyBaza BAZA
+
+	if bindErr := c.BindJSON(&MyBaza); bindErr != nil {
+		log.Fatalf("CreateYourBaza: %v", bindErr)
+	}
+	_, InsertionErr := DB.Query("INSERT INTO BAZAS(ID, BAZA) VALUES(?, ?)", MyBaza.ID, MyBaza.Baza)
+	if InsertionErr != nil {
+		log.Fatalf("CreateYourBaza: %v", InsertionErr)
+	}
+
+	c.IndentedJSON(http.StatusCreated, MyBaza)
+}
