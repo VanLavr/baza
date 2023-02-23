@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"BAZA/api"
 	"github.com/gin-gonic/gin"
-	"net/http"
+	//"net/http"
 	//"os"
 	//"github.com/go-sql-driver/mysql"
-	"log"
+	//"log"
 	//"database/sql"
 )
 
@@ -19,18 +19,10 @@ func main() {
 
 	
 	router := gin.Default()
-	
-	// get all endpoint...
-	MyBaza, bazaErr := api.GetAllBazas()
-	if bazaErr != nil {
-		log.Fatal(bazaErr)
-	}
-	router.GET("/baza", func (c *gin.Context) {
-		c.IndentedJSON(http.StatusOK, MyBaza)
-	})
-
-	//router.POST()
-	//router.DELETE()
+	// get all baza endpoint...
+	router.GET("/baza", api.GetAllBazas)
+	// get a certain baza endpoint...
+	router.GET("/baza/:id", api.GetBazaByID)
 
 	router.Run("localhost:8080")
 }
