@@ -6,28 +6,13 @@ import (
 	"github.com/go-sql-driver/mysql"
 	"log"
 	"database/sql"
-	"github.com/gin-gonic/gin"
-	"net/http"
+	//"github.com/gin-gonic/gin"
+	//"net/http"
 )
 
 func Greeting() {
 	fmt.Println("Working!")
 }
-
-type test struct {
-	ID   int    `json:"ID"`
-	Baza string `json:"baza"`	
-}
-
-var Tests = []test {
-	{ID: 5, Baza: "test"},
-}
-
-func GetTests(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, Tests)
-}
-
-
 
 type BAZA struct {
 	ID   int    `json:"ID"`
@@ -80,6 +65,30 @@ func GetBazaByID(id int) ([]BAZA, error) {
 
 	if rowErr := rows.Err(); rowErr != nil {
 		return nil, fmt.Errorf("GetBazaByID: %d, %v", id, rowErr)
+	}
+
+	return BAZAS, nil
+}
+
+func GetAllBazas() ([]BAZA, error) {
+	var BAZAS []BAZA
+
+	rows, rowsErr := DB.Query("SELECT * FROM BAZAS")
+	if rowsErr != nil {
+		return nil, fmt.Errorf("GetAllBazas: %v", rowsErr)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var bz BAZA
+		if scanErr := rows.Scan(&bz.ID, &bz.Baza); scanErr != nil {
+			return nil, fmt.Errorf("GetAllBazas: %v", scanErr)
+		}
+		BAZAS = append(BAZAS, bz)
+	}
+
+	if rowErr := rows.Err(); rowErr != nil {
+		return nil, fmt.Errorf("GetAllBazas: %v", rowErr)
 	}
 
 	return BAZAS, nil
