@@ -1,1 +1,0 @@
-curl http://localhost:8080/baza/create --include --header "Content-Type: application/json" --request "POST" --data '{"id": "10", "baza": "BZAZA_3"}'

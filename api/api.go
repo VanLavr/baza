@@ -111,11 +111,12 @@ func CreateYourBaza(c *gin.Context) {
 	var MyBaza BAZA
 
 	if bindErr := c.BindJSON(&MyBaza); bindErr != nil {
-		log.Fatalf("CreateYourBaza: %v", bindErr)
+		log.Fatalf("CreateYourBaza (can't bind...): %v", bindErr)
+		fmt.Println(MyBaza)
 	}
 	_, InsertionErr := DB.Query("INSERT INTO BAZAS(ID, BAZA) VALUES(?, ?)", MyBaza.ID, MyBaza.Baza)
 	if InsertionErr != nil {
-		log.Fatalf("CreateYourBaza: %v", InsertionErr)
+		log.Fatalf("CreateYourBaza (can't execute query...): %v", InsertionErr)
 	}
 
 	c.IndentedJSON(http.StatusCreated, MyBaza)
