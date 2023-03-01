@@ -25,6 +25,8 @@ func main() {
 	router.GET("/baza/:id", api.GetBazaByID)
 	// create your own baza endpoint...
 	router.POST("/baza/create", api.CreateYourBaza)
+	// delete baza endpoint... 
+	router.DELETE("baza/delete/:id", api.DeleteBaza)
 
 	router.Run("localhost:8080")
 }

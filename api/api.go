@@ -121,3 +121,17 @@ func CreateYourBaza(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusCreated, MyBaza)
 }
+
+// delete baza...
+func DeleteBaza(c *gin.Context) {
+	id := c.Param("id")
+
+	_, DeleteError := DB.Query("DELETE FROM BAZAS WHERE ID = ?", id)
+	if DeleteError != nil {
+		log.Fatalf("DeleteBaza (can't execute query...): %v", DeleteError)
+	}
+
+	c.IndentedJSON(http.StatusOK, gin.H{
+		"status": "deleted"
+	})
+}
