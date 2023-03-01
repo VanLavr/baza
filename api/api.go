@@ -132,6 +132,6 @@ func DeleteBaza(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, gin.H{
-		"status": "deleted"
+		"status": "deleted",
 	})
 }

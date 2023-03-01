@@ -1,1 +1,2 @@
 curl -XPOST -H "Content-type: application/json" -d "{\"ID\": 11, \"baza\": \"BAZA_3\"}" "http://localhost:8080/baza/create"
+curl -X DELETE http://localhost:8080/baza/delete/:id
