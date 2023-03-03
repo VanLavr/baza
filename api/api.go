@@ -17,8 +17,9 @@ func Greeting() {
 
 
 /* 
-	connection to database...
+	working with database...
 */
+// connection to database...
 var (
 	DB *sql.DB
 	connectionErr error
@@ -40,8 +41,24 @@ func ConnectingToDataBase() {
 	
 	pingErr := DB.Ping()
 	if pingErr != nil {
-		fmt.Println("connected...")
+		fmt.Println("did not connected...")
 	}	
+}
+
+// get all ids from database...
+func GetAllIds() (allIds []int) {
+	ids, idsErr := DB.Query("SELECT id FROM BAZAS")
+	if idsErr != nil {
+		log.Fatalf("GetAllIds: %v", idsErr)
+	}
+
+	for ids.Next() {
+		if scanErr := ids.Scan(&allIds); scanErr != nil {
+			log.Fatalf("GetAllIds: %v", idsErr)
+		}
+	}
+
+	return
 }
 
 

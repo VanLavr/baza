@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"BAZA/api"
 	"github.com/gin-gonic/gin"
+	"rand"
 	//"net/http"
 	//"os"
 	//"github.com/go-sql-driver/mysql"
@@ -13,8 +14,13 @@ import (
 
 func main() {
 	fmt.Printf("\n\n\n")
-	api.Greeting()
 	api.ConnectingToDataBase()
+
+	testArr := api.GetAllIds()
+	fmt.Println(testArr)
+	//randomBaza := rand.Intn(maxBazaId - minBazaId) + minBazaId
+
+	api.Greeting()
 	fmt.Printf("\n\n\n")
 
 	
@@ -26,7 +32,7 @@ func main() {
 	// create your own baza endpoint...
 	router.POST("/baza/create", api.CreateYourBaza)
 	// delete baza endpoint... 
-	router.DELETE("baza/delete/:id", api.DeleteBaza)
+	router.DELETE("baza/delete/:id", api.DeleteBaza)	
 
 	router.Run("localhost:8080")
 }
