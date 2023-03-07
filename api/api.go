@@ -8,6 +8,7 @@ import (
 	"database/sql"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"BAZA/validator"
 )
 
 func Greeting() {
@@ -135,6 +136,11 @@ func CreateYourBaza(c *gin.Context) {
 		log.Fatalf("CreateYourBaza (can't bind...): %v", bindErr)
 		fmt.Println(MyBaza)
 	}
+
+	if idErr := validator.IsUniqueId(MyBaza.ID); idErr != nil {
+		log.Fatalf("CreateYourBaza: %v", idErr)
+	}
+
 	_, InsertionErr := DB.Query("INSERT INTO BAZAS(ID, BAZA) VALUES(?, ?)", MyBaza.ID, MyBaza.Baza)
 	if InsertionErr != nil {
 		log.Fatalf("CreateYourBaza (can't execute query...): %v", InsertionErr)
