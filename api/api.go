@@ -53,9 +53,12 @@ func GetAllIds() (allIds []int) {
 	}
 
 	for ids.Next() {
-		if scanErr := ids.Scan(&allIds); scanErr != nil {
+		var idFromDataBase int
+		if scanErr := ids.Scan(&idFromDataBase); scanErr != nil {
 			log.Fatalf("GetAllIds: %v", idsErr)
 		}
+
+		allIds = append(allIds, idFromDataBase)
 	}
 
 	return
@@ -63,6 +66,7 @@ func GetAllIds() (allIds []int) {
 
 
 /* 
+	creating CRUD controller...
 	creating functions for
 	endpoints...
 */ 

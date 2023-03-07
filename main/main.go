@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"BAZA/api"
 	"github.com/gin-gonic/gin"
-	"rand"
+	//"math/rand"
 	//"net/http"
 	//"os"
 	//"github.com/go-sql-driver/mysql"
